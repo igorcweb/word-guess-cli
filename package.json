@@ -1,0 +1,14 @@
+{
+  "name": "word-guess-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "Igor Chernyshev",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^6.1.0"
+  }
+}
