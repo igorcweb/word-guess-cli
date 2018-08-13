@@ -35,7 +35,7 @@ function chooseWord() {
 }
 
 console.log('Welcome to Word Game CLI!');
-
+let letterArr;
 inquirer
   .prompt([
     {
@@ -50,16 +50,13 @@ inquirer
     );
     console.log('');
     word = chooseWord();
-    let letterArr = word.letterArr();
-    console.log('letterArr: ', letterArr);
-    let display = '';
-    letterArr.forEach(obj => {
-      display += obj.display() + ' ';
-    });
-    console.log('display: ', display);
-    letterPrompt();
+    letterArr = word.letterArr();
+    console.log(letterArr);
+    console.log('');
+    console.log(word.wordDisplay(letterArr));
+    console.log('');
 
-    // letterPrompt();
+    letterPrompt();
     function letterPrompt() {
       inquirer
         .prompt([
@@ -70,17 +67,15 @@ inquirer
           }
         ])
         .then(answer => {
-          display = '';
           guess = answer.letter;
-          letterArr = word.compare(guess);
-          console.log('from compare: ', letterArr);
-          letterArr.forEach(obj => {
-            display += obj.display() + ' ';
-          });
-          console.log('display: ', display);
-          if (display.includes('_')) {
-            letterPrompt();
-          }
+          letterArr = word.compare(guess, letterArr);
+          console.log(letterArr);
+          console.log('');
+          console.log('after compare: ', word.wordDisplay());
+          console.log('');
+          // if (display.includes('_')) {
+          //   letterPrompt();
+          // }
         });
     }
   });

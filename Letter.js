@@ -3,6 +3,7 @@ const Letter = function(value) {
   this.guessed = false;
 };
 
+//Displayin either the letter or placeholder depending on the guess
 Letter.prototype.display = function() {
   let { value, guessed } = this;
   if (guessed) {
@@ -11,6 +12,7 @@ Letter.prototype.display = function() {
   return '_';
 };
 
+//Checking if the letter has been guessed yer
 Letter.prototype.check = function(guess) {
   if (this.value === guess) {
     return (this.guessed = true);

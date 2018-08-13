@@ -4,6 +4,7 @@ const Word = function(word) {
   this.word = word;
 };
 
+//Create an array of new Letter objects
 Word.prototype.letterArr = function() {
   const letterArr = [];
   this.word.split('').forEach(letter => {
@@ -13,28 +14,26 @@ Word.prototype.letterArr = function() {
   return letterArr;
 };
 
-Word.prototype.display = function() {
-  let display = '';
-  let letterArr = this.letterArr();
+//Return a string representing word display
+Word.prototype.wordDisplay = function(letterArr = this.letterArr()) {
+  let wordDisplay = [];
   letterArr.forEach(letter => {
-    if (letter.guessed) {
-      display += letter.value + ' ';
-    } else {
-      display += '_ ';
-    }
+    //Function from Letter.js
+    wordDisplay.push(letter.display());
   });
-  return display;
+  return wordDisplay.join(' ');
 };
 
-Word.prototype.compare = function(guess) {
-  let letterArr = this.letterArr();
+//Compare letter to guess, and return an array with updated "guessed" values
+Word.prototype.compare = function(guess, letterArr = this.letterArr()) {
   letterArr.forEach(letter => {
+    //function from Letter.js
     letter.guessed = letter.check(guess);
   });
   return letterArr;
 };
 
 // word.compare('u');
-// console.log(word.display());
+// console.log(word.wordDisplay());
 
 module.exports = Word;
