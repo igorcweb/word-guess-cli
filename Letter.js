@@ -22,3 +22,5 @@ Letter.prototype.check = function(guess) {
 
 // console.log(letter.check('a'));
 // console.log(letter.display());
+
+module.exports = Letter;
