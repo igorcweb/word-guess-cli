@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const Word = require('./Word');
+const helpers = require('./helpers');
+const shuffle = helpers.shuffle;
 
 const words = [
   'timberwolves',
@@ -18,13 +20,6 @@ const words = [
   'kings',
   'suns'
 ];
-function shuffle(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
 
 let wordCount = 0;
 let guess;
@@ -33,8 +28,9 @@ function chooseWord() {
   const shuffledWords = shuffle(words);
   return new Word(shuffledWords[wordCount]);
 }
-
-console.log('Welcome to Word Game CLI!');
+console.log('');
+console.log('Welcome to Word Guess CLI!');
+console.log('');
 let letterArr;
 inquirer
   .prompt([
@@ -45,6 +41,7 @@ inquirer
     }
   ])
   .then(answer => {
+    console.log('');
     console.log(
       `Hello ${answer.name}!  Please guess a Western Conference NBA team:`
     );
@@ -71,11 +68,11 @@ inquirer
           letterArr = word.compare(guess, letterArr);
           console.log(letterArr);
           console.log('');
-          console.log('after compare: ', word.wordDisplay());
+          console.log(word.wordDisplay(letterArr));
           console.log('');
-          // if (display.includes('_')) {
-          //   letterPrompt();
-          // }
+          if (word.wordDisplay().includes('_')) {
+            letterPrompt();
+          }
         });
     }
   });

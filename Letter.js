@@ -12,7 +12,7 @@ Letter.prototype.display = function() {
   return '_';
 };
 
-//Checking if the letter has been guessed yer
+//Checking if the letter has been guessed
 Letter.prototype.check = function(guess) {
   if (this.value === guess) {
     return (this.guessed = true);
