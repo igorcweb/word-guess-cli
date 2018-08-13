@@ -47,7 +47,7 @@ inquirer
     );
     console.log('');
     word = chooseWord();
-    letterArr = word.letterArr();
+    letterArr = word.letterArr(letterArr);
     console.log(letterArr);
     console.log('');
     console.log(word.wordDisplay(letterArr));
@@ -64,13 +64,21 @@ inquirer
           }
         ])
         .then(answer => {
-          guess = answer.letter;
-          letterArr = word.compare(guess, letterArr);
-          console.log(letterArr);
-          console.log('');
-          console.log(word.wordDisplay(letterArr));
-          console.log('');
-          if (word.wordDisplay().includes('_')) {
+          if (
+            answer.letter.match(/^[A-Za-z]+$/) &&
+            answer.letter.length === 1
+          ) {
+            guess = answer.letter;
+            letterArr = word.compare(guess, letterArr);
+            console.log(letterArr);
+            console.log('');
+            console.log(word.wordDisplay(letterArr));
+            console.log('');
+            if (word.wordDisplay().includes('_')) {
+              letterPrompt();
+            }
+          } else {
+            console.log('Please enter a single letter');
             letterPrompt();
           }
         });
