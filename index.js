@@ -68,7 +68,7 @@ inquirer
             answer.letter.match(/^[A-Za-z]+$/) &&
             answer.letter.length === 1
           ) {
-            guess = answer.letter;
+            guess = answer.letter.toLowerCase();
             letterArr = word.compare(guess, letterArr);
             console.log(letterArr);
             console.log('');
