@@ -13,11 +13,10 @@ Word.prototype.letterArr = function() {
   return letterArr;
 };
 
-let word = new Word('mavericks');
-
 Word.prototype.display = function() {
   let display = '';
-  this.letterArr().forEach(letter => {
+  let letterArr = this.letterArr();
+  letterArr.forEach(letter => {
     if (letter.guessed) {
       display += letter.value + ' ';
     } else {
@@ -28,12 +27,14 @@ Word.prototype.display = function() {
 };
 
 Word.prototype.compare = function(guess) {
-  this.letterArr().forEach(letter => {
+  let letterArr = this.letterArr();
+  letterArr.forEach(letter => {
     letter.guessed = letter.check(guess);
-    console.log(letter);
-    // console.log(letter.display());
   });
+  return letterArr;
 };
 
-// word.compare('a');
+// word.compare('u');
 // console.log(word.display());
+
+module.exports = Word;

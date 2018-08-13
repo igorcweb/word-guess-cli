@@ -3,8 +3,6 @@ const Letter = function(value) {
   this.guessed = false;
 };
 
-let letter = new Letter('A');
-
 Letter.prototype.display = function() {
   let { value, guessed } = this;
   if (guessed) {
