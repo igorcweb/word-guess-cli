@@ -7,7 +7,7 @@ const Letter = function(value) {
 Letter.prototype.display = function() {
   let { value, guessed } = this;
   if (guessed || value === ' ') {
-    return value;
+    return value.toUpperCase();
   }
   return '_';
 };

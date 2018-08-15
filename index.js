@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const Word = require('./Word');
 const helpers = require('./helpers');
-const shuffle = helpers.shuffle;
+const { shuffle } = helpers;
 let guessedLetters = [];
 let display;
 
@@ -38,7 +38,7 @@ function play() {
   // console.log(word.word);
   let letterArr = word.letterArr();
   console.log('');
-  console.log(word.wordDisplay());
+  console.log(word.wordDisplay().toUpperCase());
   console.log('');
   function letterPrompt() {
     inquirer
@@ -53,7 +53,7 @@ function play() {
         let { letter } = answer;
         letter = letter.toLowerCase();
         if (letter.match(/^[A-Za-z]+$/) && letter.length === 1) {
-          guessedLetters.push(letter);
+          guessedLetters.push(letter.toUpperCase());
           guessedLetters = Array.from(new Set(guessedLetters));
           console.log('');
           console.log(`Guessed letters: ${guessedLetters.join(', ')}`);
@@ -61,11 +61,18 @@ function play() {
           let wordDisplay = word.wordDisplay(letterArr);
           if (display === wordDisplay) {
             attempts--;
-            if (attempts > 0) {
+            if (attempts > 1) {
+              console.log('');
               console.log(`${attempts} attempts left.`);
               console.log('');
+            } else if (attempts === 1) {
+              console.log('');
+              console.log(`${attempts} attempt left.`);
+              console.log('');
             } else {
-              console.log(word.word);
+              console.log('');
+              console.log(`The answer is ${word.word.toUpperCase()}`);
+              console.log('');
               playAgain();
               return;
             }
@@ -113,7 +120,9 @@ function playAgain() {
         shuffledWords = shuffle(words);
         play();
       } else {
+        console.log('');
         console.log('Thank you for playing!');
+        console.log('');
       }
     });
 }
@@ -131,6 +140,5 @@ inquirer
     console.log(
       `Hello ${answer.name}!  Please guess a Western Conference NBA team:`
     );
-    console.log('');
     play();
   });
