@@ -3,7 +3,6 @@ const Word = require('./Word');
 const helpers = require('./helpers');
 const shuffle = helpers.shuffle;
 let guessedLetters = [];
-// let attempts = 6;
 let display;
 
 const words = [
@@ -38,6 +37,7 @@ function play() {
   word = new Word(shuffledWords[wordCount]);
   // console.log(word.word);
   let letterArr = word.letterArr();
+  console.log('');
   console.log(word.wordDisplay());
   console.log('');
   function letterPrompt() {
@@ -55,6 +55,7 @@ function play() {
         if (letter.match(/^[A-Za-z]+$/) && letter.length === 1) {
           guessedLetters.push(letter);
           guessedLetters = Array.from(new Set(guessedLetters));
+          console.log('');
           console.log(`Guessed letters: ${guessedLetters.join(', ')}`);
           letterArr = word.compare(letter, letterArr, attempts);
           let wordDisplay = word.wordDisplay(letterArr);
@@ -62,13 +63,16 @@ function play() {
             attempts--;
             if (attempts > 0) {
               console.log(`${attempts} attempts left.`);
+              console.log('');
             } else {
               console.log(word.word);
               playAgain();
               return;
             }
           }
+          console.log('');
           console.log(wordDisplay);
+          console.log('');
           display = wordDisplay;
           if (wordDisplay.includes('_')) {
             letterPrompt();
@@ -128,6 +132,5 @@ inquirer
       `Hello ${answer.name}!  Please guess a Western Conference NBA team:`
     );
     console.log('');
-
     play();
   });
