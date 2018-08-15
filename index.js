@@ -2,8 +2,8 @@ const inquirer = require('inquirer');
 const Word = require('./Word');
 const helpers = require('./helpers');
 const { shuffle } = helpers;
-let guessedLetters = [];
 let display;
+let wordDisplay;
 
 const words = [
   'timberwolves',
@@ -25,20 +25,22 @@ const words = [
 
 let wordCount = 0;
 let wordsNumber = words.length;
-let word;
-let shuffledWords = shuffle(words);
+// let word;
 
 console.log('');
 console.log('Welcome to Word Guess CLI!');
 console.log('');
 function play() {
   let attempts = 6;
-  guessedLetters = [];
-  word = new Word(shuffledWords[wordCount]);
+  let guessedLetters = [];
+  let shuffledWords = shuffle(words);
+  let word = new Word(shuffledWords[wordCount]);
   // console.log(word.word);
   let letterArr = word.letterArr();
   console.log('');
-  console.log(word.wordDisplay().toUpperCase());
+  wordDisplay = word.wordDisplay().toUpperCase();
+  display = wordDisplay;
+  console.log(wordDisplay);
   console.log('');
   function letterPrompt() {
     inquirer
@@ -53,15 +55,16 @@ function play() {
         let { letter } = answer;
         letter = letter.toLowerCase();
         if (letter.match(/^[A-Za-z]+$/) && letter.length === 1) {
-          guessedLetters.push(letter.toUpperCase());
-          guessedLetters = Array.from(new Set(guessedLetters));
-          console.log('');
-          console.log(`Guessed letters: ${guessedLetters.join(', ')}`);
           letterArr = word.compare(letter, letterArr, attempts);
-          let wordDisplay = word.wordDisplay(letterArr);
-          if (display === wordDisplay) {
+          wordDisplay = word.wordDisplay(letterArr);
+          if (
+            display === wordDisplay &&
+            !guessedLetters.includes(letter.toUpperCase())
+          ) {
+            console.log('guessed: ', guessedLetters);
+            console.log('guess: ', letter.toUpperCase());
             attempts--;
-            if (attempts > 1) {
+            if (attempts) {
               console.log('');
               console.log(`${attempts} attempts left.`);
               console.log('');
@@ -77,6 +80,10 @@ function play() {
               return;
             }
           }
+          guessedLetters.push(letter.toUpperCase());
+          guessedLetters = Array.from(new Set(guessedLetters));
+          console.log('');
+          console.log(`Guessed letters: ${guessedLetters.join(', ')}`);
           console.log('');
           console.log(wordDisplay);
           console.log('');
