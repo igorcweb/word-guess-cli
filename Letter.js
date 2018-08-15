@@ -6,7 +6,7 @@ const Letter = function(value) {
 //Displaying either the letter or placeholder depending on the guess
 Letter.prototype.display = function() {
   let { value, guessed } = this;
-  if (guessed) {
+  if (guessed || value === ' ') {
     return value;
   }
   return '_';
@@ -19,8 +19,5 @@ Letter.prototype.check = function(guess) {
   }
   return (this.guessed = false);
 };
-
-// console.log(letter.check('a'));
-// console.log(letter.display());
 
 module.exports = Letter;

@@ -6,7 +6,7 @@ const Word = function(word) {
 
 //Create an array of new Letter objects
 Word.prototype.letterArr = function(letterArr = []) {
-  this.word.split('').forEach((letter, index) => {
+  this.word.split('').forEach(letter => {
     letter = new Letter(letter);
     letterArr.push(letter);
   });
@@ -32,8 +32,5 @@ Word.prototype.compare = function(guess, letterArr = this.letterArr()) {
   });
   return letterArr;
 };
-
-// word.compare('u');
-// console.log(word.wordDisplay());
 
 module.exports = Word;
