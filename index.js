@@ -25,7 +25,7 @@ const words = [
 
 let wordCount = 0;
 let wordsNumber = words.length;
-// let word;
+let shuffledWords = shuffle(words);
 
 console.log('');
 console.log('Welcome to Word Guess CLI!');
@@ -33,7 +33,6 @@ console.log('');
 function play() {
   let attempts = 6;
   let guessedLetters = [];
-  let shuffledWords = shuffle(words);
   let word = new Word(shuffledWords[wordCount]);
   // console.log(word.word);
   let letterArr = word.letterArr();
@@ -61,8 +60,6 @@ function play() {
             display === wordDisplay &&
             !guessedLetters.includes(letter.toUpperCase())
           ) {
-            console.log('guessed: ', guessedLetters);
-            console.log('guess: ', letter.toUpperCase());
             attempts--;
             if (attempts) {
               console.log('');
