@@ -61,7 +61,7 @@ function play() {
             !guessedLetters.includes(letter.toUpperCase())
           ) {
             attempts--;
-            if (attempts) {
+            if (attempts > 1) {
               console.log('');
               console.log(`${attempts} attempts left.`);
               console.log('');
@@ -95,7 +95,9 @@ function play() {
             if (wordsNumber > 0) {
               play();
             } else {
+              console.log('');
               console.log('Congratulations!  You are an NBA expert!');
+              console.log('');
               playAgain();
             }
           }
