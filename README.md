@@ -1,3 +1,3 @@
 # Word Game CLI
 
-### Word Guess command-line game build using constructor functions.
+### Word Guess command-line game built using constructor functions.
